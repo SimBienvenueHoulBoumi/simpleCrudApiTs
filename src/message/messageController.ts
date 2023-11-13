@@ -1,10 +1,10 @@
-// fichier 2
 import express from "express";
 import {
   findAllMessage,
   createMessage,
   deleteMessage,
   updateMessage,
+  getOneMessage,
 } from "./messageService";
 
 let messageRouter = express.Router();
@@ -32,6 +32,12 @@ messageRouter.put("/update/:id", async (req, res) => {
   const time = new Date();
   await updateMessage(id, content, time);
   res.status(200).send({ message: "message updated" });
+});
+
+messageRouter.get("/getOne/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+  const message = await getOneMessage(id);
+  res.status(200).send(message);
 });
 
 export default messageRouter;

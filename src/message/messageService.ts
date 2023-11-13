@@ -28,6 +28,20 @@ const createMessage = async (message: any) => {
   }
 };
 
+const getOneMessage = async (id: number) => {
+  try {
+    const message = await prisma.message.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    return message;
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+};
+
 const deleteMessage = async (id: number) => {
   try {
     const message = await prisma.message.delete({
@@ -60,4 +74,10 @@ const updateMessage = async (id: number, message: any, time: any) => {
   }
 };
 
-export { findAllMessage, createMessage, deleteMessage, updateMessage };
+export {
+  findAllMessage,
+  createMessage,
+  deleteMessage,
+  updateMessage,
+  getOneMessage,
+};
